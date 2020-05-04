@@ -1,0 +1,8 @@
+C:\Users\T_K_S\Google ドライブ\Code\Naroupe\Naroupe\ClsCommon\bin\Debug\netstandard2.0\ClsCommon.deps.json
+C:\Users\T_K_S\Google ドライブ\Code\Naroupe\Naroupe\ClsCommon\bin\Debug\netstandard2.0\ClsCommon.dll
+C:\Users\T_K_S\Google ドライブ\Code\Naroupe\Naroupe\ClsCommon\obj\Debug\netstandard2.0\ClsCommon.csprojAssemblyReference.cache
+C:\Users\T_K_S\Google ドライブ\Code\Naroupe\Naroupe\ClsCommon\obj\Debug\netstandard2.0\ClsCommon.AssemblyInfoInputs.cache
+C:\Users\T_K_S\Google ドライブ\Code\Naroupe\Naroupe\ClsCommon\obj\Debug\netstandard2.0\ClsCommon.AssemblyInfo.cs
+C:\Users\T_K_S\Google ドライブ\Code\Naroupe\Naroupe\ClsCommon\bin\Debug\netstandard2.0\ClsCommon.pdb
+C:\Users\T_K_S\Google ドライブ\Code\Naroupe\Naroupe\ClsCommon\obj\Debug\netstandard2.0\ClsCommon.dll
+C:\Users\T_K_S\Google ドライブ\Code\Naroupe\Naroupe\ClsCommon\obj\Debug\netstandard2.0\ClsCommon.pdb
