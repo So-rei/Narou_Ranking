@@ -8,6 +8,12 @@ namespace ClsCommon
 {
     public class ClsCommon
     {
+        public const string APIURL = @"https://api.syosetu.com/novelapi/api/?";
+        public const string NOVELURL = @"https://ncode.syosetu.com/";
+        public const int MAXTITLE = 100;//1ページあたりの最大タイトル数
+        public static readonly string[] ISBOOK = { "書籍化", "書籍版", "単行本", "レーベル", "出版" };//書籍化した小説タグ
+        public static readonly string[] ISCOMIC = { "マンガ", "コミカライズ", "コミック", "COMIC" };//コミカライズした小説タグ
+
         //テスト用の開始コマンド
         static void Main(string[] args)
         {
@@ -49,8 +55,8 @@ namespace ClsCommon
             List<ModelSetParams> Msp = REFPARAMS1.Select(t => new ModelSetParams(t)).ToList();
 
             //作者処理開始
-            int endrange = GetMain.MAXTITLE;
-            if(REFPARAMS1.Count() < GetMain.MAXTITLE) endrange = REFPARAMS1.Count();
+            int endrange = ClsCommon.MAXTITLE;
+            if(REFPARAMS1.Count() < ClsCommon.MAXTITLE) endrange = REFPARAMS1.Count();
             UserParamsSet(ref Msp, 1, endrange);
             return Msp;
         }
@@ -63,7 +69,7 @@ namespace ClsCommon
         /// <param name="_refMsp">ref 作者処理をするパラメータコレクション  </param>
         /// <param name="startno">処理をする範囲開始 デフォルト1</param>
         /// <param name="endno">処理をする範囲終了 デフォルトmax</param>
-        public static void UserParamsSet(ref List<ModelSetParams> _refMsp, int startno = 1, int endno = GetMain.MAXTITLE)
+        public static void UserParamsSet(ref List<ModelSetParams> _refMsp, int startno = 1, int endno = ClsCommon.MAXTITLE)
         {
             if (endno - startno < 1) { return; }//範囲チェック
 

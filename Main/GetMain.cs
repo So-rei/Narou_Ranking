@@ -14,9 +14,6 @@ namespace ClsCommon
 {
     public class GetMain
     {
-        const string APIURL = @"https://api.syosetu.com/novelapi/api/?";
-        public const string NOVELURL = @"https://ncode.syosetu.com/";
-        public const int MAXTITLE = 100;//1ページあたりの最大タイトル数
 
         /// <summary>
         /// 取得開始[1リクエスト]
@@ -75,7 +72,7 @@ namespace ClsCommon
                 wc.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36");
 
                 // 通信・取得
-                var resData = wc.OpenRead(APIURL + sUri);
+                var resData = wc.OpenRead(ClsCommon.APIURL + sUri);
 
                 //圧縮しないのならコレで良い
                 //using (var sr = new StreamReader(resData, Encoding.GetEncoding("UTF-8")))

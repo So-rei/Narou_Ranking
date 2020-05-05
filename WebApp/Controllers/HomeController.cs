@@ -155,6 +155,16 @@ namespace WebApp.Controllers
                 ViewData["_genre" + i.ToString()] = _msp._genre;
                 ViewData["_end" + i.ToString()] = _msp._end;
                 ViewData["_is" + i.ToString()] = _msp._is;
+                ViewData["_isstop" + i.ToString()] = _msp._isstop;
+                ViewData["_isr15" + i.ToString()] = _msp._isr15;
+                ViewData["_isbl" + i.ToString()] = _msp._isbl;
+                ViewData["_isgl" + i.ToString()] = _msp._isgl;
+                ViewData["_iszankoku" + i.ToString()] = _msp._iszankoku;
+                ViewData["_istensei" + i.ToString()] = _msp._istensei;
+                ViewData["_istenni" + i.ToString()] = _msp._istenni;
+                ViewData["_issasie" + i.ToString()] = _msp._issasie;
+                ViewData["_isbook" + i.ToString()] = _msp._isbook;
+                ViewData["_iscomic" + i.ToString()] = _msp._iscomic;
                 ViewData["_url" + i.ToString()] = _msp._url;
 
                 //作者詳細項目----------------------------------------------------------------------

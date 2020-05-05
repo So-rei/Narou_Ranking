@@ -321,6 +321,9 @@ namespace ClsCommon
         public string novel_type { get; set; }//「_」対策
     }
 
+    /// <summary>
+    /// Params_Set情報をもとに、表示値を定義するクラス
+    /// </summary>
     public class ModelSetParams
     {
         /// <summary>
@@ -374,19 +377,108 @@ namespace ClsCommon
         }
 
         [JsonIgnore]
+        public string _isstop
+        {
+            get
+            {
+                return (ps.isstop == "1" ? "長期連載停止中" : "");
+            }
+        }
+        [JsonIgnore]
+        public string _isr15
+        {
+            get
+            {
+                return (ps.isr15 == "1" ? "R15" : "");
+            }
+        }
+        [JsonIgnore]
+        public string _isbl
+        {
+            get
+            {
+                return (ps.isbl == "1" ? "ボーイズラブ" : "");
+            }
+        }
+        [JsonIgnore]
+        public string _isgl
+        {
+            get
+            {
+                return (ps.isgl == "1" ? "ガールズラブ" : "");
+            }
+        }
+        [JsonIgnore]
+        public string _iszankoku
+        {
+            get
+            {
+                return (ps.iszankoku == "1" ? "残酷な描写あり" : "");
+            }
+        }
+        [JsonIgnore]
+        public string _istensei
+        {
+            get
+            {
+                return (ps.istensei == "1" ? "異世界転生" : "");
+            }
+        }
+        [JsonIgnore]
+        public string _istenni
+        {
+            get
+            {
+                return (ps.istenni == "1" ? "異世界転移" : "");
+            }
+        }
+        [JsonIgnore]
+        public string _issasie
+        {
+            get
+            {
+                return (Convert.ToInt32(ps.sasie_cnt) > 0 ? "挿絵有" : "");
+            }
+        }
+
+        [JsonIgnore]
+        public string _isbook
+        {
+            get
+            {
+                foreach (var s in ClsCommon.ISBOOK)
+                {
+                    if ((ps.keyword + ps.story).Contains(s)) return "書籍化";
+                }
+                return "";
+            }
+        }
+        [JsonIgnore]
+        public string _iscomic
+        {
+            get
+            {
+                foreach (var s in ClsCommon.ISCOMIC)
+                {
+                    if ((ps.keyword + ps.story).Contains(s)) return "コミカライズ";
+                }
+                return "";
+            }
+        }
+        [JsonIgnore]
         public string _is
         {
             get
             {
                 var s = "";
-                s += (ps.isstop == "1" ? "　【長期連載停止中" : "");
-                s += (ps.isr15 == "1" ? "　【R15】" : "");
-                s += (ps.isbl == "1" ? "　【ボーイズラブ】" : "");
-                s += (ps.isgl == "1" ? "　【ガールズラブ】" : "");
-                s += (ps.iszankoku == "1" ? "　【残酷な描写あり】" : "");
-                s += (ps.istensei == "1" ? "　【異世界転生】" : "");
-                s += (ps.istenni == "1" ? "　【異世界転移】" : "");
-                s += (Convert.ToInt32(ps.sasie_cnt) > 0 ? "　【挿絵有】" : "");
+                s += (ps.isstop == "1" ? "長期連載停止中" : "");
+                s += (ps.isr15 == "1" ? "R15" : "");
+                s += (ps.isbl == "1" ? "ボーイズラブ" : "");
+                s += (ps.isgl == "1" ? "ガールズラブ" : "");
+                s += (ps.iszankoku == "1" ? "残酷な描写あり" : "");
+                s += (ps.istensei == "1" ? "異世界転生" : "");
+                s += (ps.istenni == "1" ? "異世界転移" : "");
+                s += (Convert.ToInt32(ps.sasie_cnt) > 0 ? "挿絵有" : "");
                 return s;
             }
         }
@@ -399,7 +491,7 @@ namespace ClsCommon
         {
             get
             {
-                return GetMain.NOVELURL + ps.ncode + "/";
+                return ClsCommon.NOVELURL + ps.ncode + "/";
             }
         }
 
@@ -437,11 +529,11 @@ namespace ClsCommon
 
             //連載かつ長期連載停止中／全作品数(10話以下or短編は3個で1カウント) =エタ率
             eternal_per = 0;
-            var bunbo = _ps.Count(t => t.noveltype == "1" && t.isstop == "1");
-            if (bunbo > 0)
+            var bunsi = _ps.Count(t => t.novel_type == "1" && t.isstop == "1");
+            if (bunsi > 0)
             {
-                eternal_per = 100 * _ps.Count(t => t.noveltype == "1" && t.isstop == "1") /
-                              (_ps.Count(t => t.noveltype == "1" && Convert.ToInt32(t.general_all_no) > 10) + _ps.Count(t => t.noveltype == "2" || (t.noveltype == "1" && Convert.ToInt32(t.general_all_no) < 11)) / 3);
+                eternal_per = 100 * bunsi /
+                              (_ps.Count(t => t.novel_type == "1" && Convert.ToInt32(t.general_all_no) > 10) + _ps.Count(t => t.novel_type == "2" || (t.novel_type == "1" && Convert.ToInt32(t.general_all_no) < 11)) / 3);
             }
 
             _ps = null;//動作効率のためコレクション解放
@@ -476,7 +568,7 @@ namespace ClsCommon
         {
             get
             {
-                return GetMain.NOVELURL + this._most_valuable_ncode + "/";
+                return ClsCommon.NOVELURL + this._most_valuable_ncode + "/";
             }
             private set
             {
