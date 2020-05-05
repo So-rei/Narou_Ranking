@@ -16,27 +16,39 @@ namespace ClsCommon
     {
         const string APIURL = @"https://api.syosetu.com/novelapi/api/?";
         public const string NOVELURL = @"https://ncode.syosetu.com/";
+        public const int MAXTITLE = 100;//1ページあたりの最大タイトル数
 
         /// <summary>
-        /// 取得開始　複数リクエストある場合は並列処理をする
+        /// 取得開始[1リクエスト]
         /// </summary>
         /// <param name="_Uri"></param>
-        public static Dictionary<int, IReadOnlyList<Params_Set>> GetStart(IReadOnlyList<GetUri> _GetUri)
+        public static IReadOnlyList<Params_Set> GetStart(GetUri _GetUri)
         {
-            var ret = new Dictionary<int, IReadOnlyList<Params_Set>>();
+            var retone = ReqqGetOne(_GetUri.ToString());
+            return retone;
+        }
+
+        /// <summary>
+        /// 取得開始[複数リクエスト]　※作者別結果用の並列処理
+        /// </summary>
+        /// <param name="_Uri"></param>
+        public static Dictionary<int,UserDetail> GetUser(IReadOnlyList<GetUri> _GetUri)
+        {
+            var ret = new Dictionary<int, UserDetail>();
             var num = _GetUri.Count();
 
             object lockToken = new object();
 
             Parallel.For(0, num, i =>
                  {
-                     var retone = GetStart(_GetUri[i].ToString());
+                     var retone = ReqqGetOne(_GetUri[i].ToString());
+                     UserDetail uone = new UserDetail(retone);
+
                      lock (lockToken)
                      {
-                         ret.Add(i,retone);
+                         ret.Add(i,uone);
                      }
                  });
-
             return ret;
         }
 
@@ -45,7 +57,7 @@ namespace ClsCommon
         /// </summary>
         /// <param name="sUri"></param>
         /// <returns></returns>
-        private static IReadOnlyList<Params_Set> GetStart(string sUri)
+        private static IReadOnlyList<Params_Set> ReqqGetOne(string sUri)
         {
             using (var wc = new WebClient())
             {
@@ -88,12 +100,17 @@ namespace ClsCommon
                     }
                 }
 
-                //なぜか最後の]より後ろにまだ続きがある場合がある？オカシイので削除
-                var s = System.Text.Encoding.GetEncoding("UTF-8").GetString(ret.ToArray()).Split(']')[0] + "]";
+                var s = System.Text.Encoding.GetEncoding("UTF-8").GetString(ret.ToArray());
 
                 //jsonデシリアライズ 1ヶ目には検索件数が入っている
                 var dOutParam = Deserialize(new List<Params_Set>().AsEnumerable(), s);
 
+                //なぜか最後の]より後ろにまだ続きがある場合がある？文字列の異常なので末尾を削除してリトライ
+                if (dOutParam==null)
+                {
+                    var _s = s.Remove(s.LastIndexOf(']'))+ "]";
+                    dOutParam = Deserialize(new List<Params_Set>().AsEnumerable(), _s);
+                }
                 return (IReadOnlyList<Params_Set>)dOutParam;
             }
         }

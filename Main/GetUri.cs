@@ -30,7 +30,7 @@ namespace ClsCommon
             //初期設定
             Add(Joken.Ggzip, "5");//圧縮率max
             Add(Joken.Gout, "json");//json形式
-            Add(Joken.Glim, "5");//500作品まで出力
+            Add(Joken.Glim, (GetMain.MAXTITLE * 2).ToString());//2ページぶん=100x2=200作品まで出力
             GetParamList = "";//複数のときは-でつなげる
         }
 
