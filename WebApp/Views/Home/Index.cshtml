@@ -8,79 +8,100 @@
     </head>
     <body>
         <p></p>
-        <p></p>
         <h2>検索結果：全 @ViewData["allcount"]　件 </h2>
-        <p></p>
+        <hr />
         <div>
             @for (int i = 1; i < 100; i++)
             {
-                <h3> <a href=@ViewData["_url" + i.ToString()]> @ViewData["title" + i.ToString()]</a></h3>
-                <p>作者：　@ViewData["writer" + i.ToString()] </p>
-                <p>ストーリー：　@ViewData["story" + i.ToString()] </p>
-                <p>ジャンル：　@ViewData["_biggenre" + i.ToString()]  - @ViewData["_genre" + i.ToString()] </p>
-                <p>キーワード：　@ViewData["keyword" + i.ToString()]</p>
+                <h4> <a href=@ViewData["_url" + i.ToString()]> @ViewData["title" + i.ToString()]</a></h4>
                 <p>
-                    初回掲載日：　@ViewData["general_firstup" + i.ToString()]
-                    最終掲載日：　@ViewData["general_lastup" + i.ToString()]
-                    小説の更新日時 ： @ViewData["novelupdated_at" + i.ToString()]
+                    <div>
+                        作者：
+                        @ViewData["writer" + i.ToString()]
+                        @{
+                            int eternal = Convert.ToInt32(ViewData["eternal_per" + i.ToString()]);
+                            if (eternal > 0)
+                            {
+                                <div>
+                                    作者エタ率：
+                                    @if (eternal < 20)
+                                    {
+                                    <span class="text-primary">@ViewData["eternal_per" + i.ToString()]</span>
+                                    }
+                                    else if (eternal < 40)
+                                    {
+                                    <span class="text-success">@ViewData["eternal_per" + i.ToString()]</span>
+                                    }
+                                    else
+                                    {
+                                    <span class="text-danger">@ViewData["eternal_per" + i.ToString()]</span>
+                                    }
+                                    ％
+                                </div>
+                            }
+                        }
+                    </div>
                 </p>
+                            if (Convert.ToBoolean(ViewData["mostflg" + i.ToString()]) == false)
+                            {
+                    <p>
+                        代表作： <a href=@ViewData["most_valuable_url" + i.ToString()]> @ViewData["most_valuable_title" + i.ToString()]</a>
+                        (
+                        @ViewData["most_point" + i.ToString()]
+                        Pt)
+                    </p>
+                            }
+                <p>ストーリー：@ViewData["story" + i.ToString()] </p>
+                <p>ジャンル：@ViewData["_biggenre" + i.ToString()]  - @ViewData["_genre" + i.ToString()] </p>
+                <p>キーワード：<span class="text-primary">@ViewData["keyword" + i.ToString()]</span></p>
+                <p>最終掲載日：@ViewData["general_lastup" + i.ToString()]</p>
+
                 <p>
                     @ViewData["_end" + i.ToString()]
                     @ViewData["length" + i.ToString()] 文字
-                    <div>
-                        <span class="badge badge-dark">@ViewData["_isstop" + i.ToString()]</span>
-                        <span class="badge badge-info">@ViewData["_isr15" + i.ToString()]</span>
-                        <span class="badge badge-primary">@ViewData["_isbl" + i.ToString()]</span>
-                        <span class="badge badge-danger">@ViewData["_isgl" + i.ToString()]</span>
-                        <span class="badge badge-info">@ViewData["_iszankoku" + i.ToString()]</span>
-                        <span class="badge badge-secondary">@ViewData["_istensei" + i.ToString()]</span>
-                        <span class="badge badge-secondary">@ViewData["_istenni" + i.ToString()]</span>
-                        <span class="badge badge-light">@ViewData["_issasie" + i.ToString()]</span>
-                        <span class="badge badge-success">@ViewData["_isbook" + i.ToString()]</span>
-                        <span class="badge badge-success">@ViewData["_iscomic" + i.ToString()]</span>
-                    </div>
+
+                    <span class="badge badge-dark">@ViewData["_isstop" + i.ToString()]</span>
+                    <span class="badge badge-info">@ViewData["_isr15" + i.ToString()]</span>
+                    <span class="badge badge-primary">@ViewData["_isbl" + i.ToString()]</span>
+                    <span class="badge badge-danger">@ViewData["_isgl" + i.ToString()]</span>
+                    <span class="badge badge-info">@ViewData["_iszankoku" + i.ToString()]</span>
+                    <span class="badge badge-secondary">@ViewData["_istensei" + i.ToString()]</span>
+                    <span class="badge badge-secondary">@ViewData["_istenni" + i.ToString()]</span>
+                    <span class="badge badge-light">@ViewData["_issasie" + i.ToString()]</span>
+                    <span class="badge badge-success">@ViewData["_isbook" + i.ToString()]</span>
+                    <span class="badge badge-success">@ViewData["_iscomic" + i.ToString()]</span>
                 </p>
 
-                <p>日/週/月/四半期/年間/総合</p>
-                <p>
-                    @ViewData["daily_point" + i.ToString()]
-                    @ViewData["weekly_point" + i.ToString()]
-                    @ViewData["monthly_point" + i.ToString()]
-                    @ViewData["quarter_point" + i.ToString()]
-                    @ViewData["yearly_point" + i.ToString()]
-                    @ViewData["global_point" + i.ToString()]
-                </p>
-                <p>
-                    ブックマーク数：@ViewData["fav_novel_cnt" + i.ToString()]
-                    感想数：@ViewData["impression_cnt" + i.ToString()]
-                    レビュー数：@ViewData["review_cnt" + i.ToString()]
-                    件
-                    評価P：@ViewData["all_point" + i.ToString()]
-                    評価数：@ViewData["all_hyoka_cnt" + i.ToString()]
-                    挿絵数：@ViewData["sasie_cnt" + i.ToString()]
-                    会話率：@ViewData["kaiwaritu" + i.ToString()]
-                </p>
-                <div class="alert alert-info" role="alert">
-                    <h4>作者情報詳細</h4>
-                    @if (Convert.ToBoolean(ViewData["mostflg" + i.ToString()]) == false)
-                    {
+                <details>
+                    <summary class="p-1 mb-1 bg-info text-white">
+                        小説情報詳細
+                    </summary>
+
+                    <div class="detail alert alert-info">
+                        <p>日/週/月/四半期/年間/総合</p>
                         <p>
-                            代表作： <a href=@ViewData["most_valuable_url" + i.ToString()]> @ViewData["most_valuable_title" + i.ToString()]</a>
-                            (
-                            @ViewData["most_point" + i.ToString()]
-                            Pt)
+                            @ViewData["daily_point" + i.ToString()]
+                            @ViewData["weekly_point" + i.ToString()]
+                            @ViewData["monthly_point" + i.ToString()]
+                            @ViewData["quarter_point" + i.ToString()]
+                            @ViewData["yearly_point" + i.ToString()]
+                            @ViewData["global_point" + i.ToString()]
                         </p>
-                    }
-                    @if (Convert.ToInt32(ViewData["eternal_per" + i.ToString()]) > 0)
-                    {
                         <p>
-                            エタ率：
-                            <span class="text-danger">@ViewData["eternal_per" + i.ToString()]</span>
-                            %
+                            初回掲載日：@ViewData["general_firstup" + i.ToString()]
+                            ブックマーク数：@ViewData["fav_novel_cnt" + i.ToString()]
+                            感想数：@ViewData["impression_cnt" + i.ToString()]
+                            レビュー数：@ViewData["review_cnt" + i.ToString()]
+                            件
+                            評価P：@ViewData["all_point" + i.ToString()]
+                            評価数：@ViewData["all_hyoka_cnt" + i.ToString()]
+                            挿絵数：@ViewData["sasie_cnt" + i.ToString()]
+                            会話率：@ViewData["kaiwaritu" + i.ToString()]
                         </p>
-                    }
-                </div>
-            }
+                    </div>
+                </details>
+                <hr />
+             }
         </div>
     </body>
 </html>

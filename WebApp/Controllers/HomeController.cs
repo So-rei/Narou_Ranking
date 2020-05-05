@@ -87,7 +87,7 @@ namespace WebApp.Controllers
                 ViewData["all_hyoka_cnt" + i.ToString()] = _msp.ps.all_hyoka_cnt;
                 ViewData["sasie_cnt" + i.ToString()] = _msp.ps.sasie_cnt;
                 ViewData["kaiwaritu" + i.ToString()] = _msp.ps.kaiwaritu;
-                ViewData["novelupdated_at" + i.ToString()] = _msp.ps.novelupdated_at;
+                //ViewData["novelupdated_at" + i.ToString()] = _msp.ps.novelupdated_at;
                 //ViewData["updated_at" + i.ToString()] = _sp.updated_at;
 
                 //計算処理を入れた項目--------------------------------------------------------------
