@@ -6,4 +6,3 @@ C:\Users\T_K_S\Google ドライブ\Code\Naroupe\Naroupe\Main\bin\Debug\Newtonsof
 C:\Users\T_K_S\Google ドライブ\Code\Naroupe\Naroupe\Main\obj\Debug\Main.csproj.CopyComplete
 C:\Users\T_K_S\Google ドライブ\Code\Naroupe\Naroupe\Main\obj\Debug\Main.exe
 C:\Users\T_K_S\Google ドライブ\Code\Naroupe\Naroupe\Main\obj\Debug\Main.pdb
-C:\Users\T_K_S\Google ドライブ\Code\Naroupe\Naroupe\Main\obj\Debug\Main.csprojAssemblyReference.cache
