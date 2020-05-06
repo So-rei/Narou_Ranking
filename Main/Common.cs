@@ -27,6 +27,7 @@ namespace ClsCommon
             var GetUri1 = new GetUri();
             GetUri1.Add(Joken.Ggenre, ((int)EGenre.ハイファンタジー).ToString());//ジャンル指定
             GetUri1.Add(Joken.Gorder, EOrder.Ghyoka.ToString());//総合ポイントの高い順 ※文字列
+            GetUri1.Add(Joken.Glim, "20");//とりあえず20件だけ
 
             //処理開始
             var REFPARAMS = GetMain.GetStart(GetUri1);
@@ -45,10 +46,11 @@ namespace ClsCommon
             //テスト情報サンプルを作成
             var GetUri1 = new GetUri();
             GetUri1.Add(Joken.Ggenre, ((int)EGenre.ハイファンタジー).ToString());//ジャンル指定
-            //GetUri1.Add(Joken.Gorder, EOrder.Ghyoka.ToString());//総合ポイントの高い順 ※文字列
-            GetUri1.Add(Joken.Gorder, EOrder.Gweekly.ToString());//週間ユニークユーザの多い順 ※文字列
-            GetUri1.Add(Joken.Gorder, EOrder.Glengthasc.ToString());
+            GetUri1.Add(Joken.Gorder, EOrder.Ghyoka.ToString());//総合ポイントの高い順 ※文字列
+            //GetUri1.Add(Joken.Gorder, EOrder.Gweekly.ToString());//週間ユニークユーザの多い順 ※文字列
+            //GetUri1.Add(Joken.Gorder, EOrder.Glengthasc.ToString());//少ない順
             GetUri1.Add(Joken.Guserid, "172188");//作者のユーザーID
+            //GetUri1.Add(Joken.Glim, "20");//
 
             //処理開始
             var REFPARAMS1 = GetMain.GetStart(GetUri1);

@@ -316,6 +316,9 @@ namespace ClsCommon
         public string all_hyoka_cnt { get; set; }
         public string sasie_cnt { get; set; }
         public string kaiwaritu { get; set; }
+        /// <summary>
+        /// 小説の更新日時 
+        /// </summary>
         public string novelupdated_at { get; set; }
         public string updated_at { get; set; }
         public string novel_type { get; set; }//「_」対策
@@ -331,14 +334,20 @@ namespace ClsCommon
         /// </summary>
         [JsonIgnore]
         public readonly Params_Set ps;
+        /// <summary>
+        /// 検索順　何位か
+        /// </summary>
+        [JsonIgnore]
+        public readonly int iranking;
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="_ps"></param>
-        public ModelSetParams(Params_Set _ps)
+        public ModelSetParams(KeyValuePair<int, Params_Set> _ps)
         {
-            ps = _ps;
+            iranking = _ps.Key;
+            ps = _ps.Value;
         }
 
 

@@ -19,10 +19,15 @@ namespace ClsCommon
         /// 取得開始[1リクエスト]
         /// </summary>
         /// <param name="_Uri"></param>
-        public static IReadOnlyList<Params_Set> GetStart(GetUri _GetUri)
+        public static Dictionary<int, Params_Set> GetStart(GetUri _GetUri)
         {
-            var retone = ReqqGetOne(_GetUri.ToString());
-            return retone;
+            var ret = new Dictionary<int, Params_Set>();
+            var retcol = ReqqGetOne(_GetUri.ToString());
+            for (var i = 0; i < retcol.Count(); i++)
+            {
+                ret.Add(i, retcol[i]);
+            }
+            return ret;
         }
 
         /// <summary>

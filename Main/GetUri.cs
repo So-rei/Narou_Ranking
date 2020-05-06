@@ -53,7 +53,7 @@ namespace ClsCommon
         {
             //項目を1つの文字列として出力　G削除、=,&セットが必要
             StringBuilder sRet = new StringBuilder("");
-            JokenList.ToList().ForEach(s => sRet.Append(s.Key.ToString().TrimStart('G') + "=" + s.Value + "&"));
+            JokenList.ToList().ForEach(s => sRet.Append(s.Key.ToString().TrimStart('G') + "=" + s.Value.ToString().TrimStart('G') + "&"));
             sRet.Append(GetParamList);
             return sRet.ToString().TrimEnd('&');
         }

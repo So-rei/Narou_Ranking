@@ -11,9 +11,16 @@
         <h2>検索結果：全 @ViewData["allcount"]　件 </h2>
         <hr />
         <div>
-            @for (int i = 1; i < 100; i++)
+            @for (int i = 1; i <  Convert.ToInt32(ViewData["viewcount"]) ; i++)
             {
                 <h4> <a href=@ViewData["_url" + i.ToString()]> @ViewData["title" + i.ToString()]</a></h4>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <img src="@Url.Action("RenderChartData", new { irank = i })" />
+                    </div>
+                </div>
+
                 <p>
                     <div>
                         作者：
@@ -26,15 +33,15 @@
                                     作者エタ率：
                                     @if (eternal < 20)
                                     {
-                                    <span class="text-primary">@ViewData["eternal_per" + i.ToString()]</span>
+                                        <span class="text-primary">@ViewData["eternal_per" + i.ToString()]</span>
                                     }
                                     else if (eternal < 40)
                                     {
-                                    <span class="text-success">@ViewData["eternal_per" + i.ToString()]</span>
+                                        <span class="text-success">@ViewData["eternal_per" + i.ToString()]</span>
                                     }
                                     else
                                     {
-                                    <span class="text-danger">@ViewData["eternal_per" + i.ToString()]</span>
+                                        <span class="text-danger">@ViewData["eternal_per" + i.ToString()]</span>
                                     }
                                     ％
                                 </div>
@@ -42,15 +49,15 @@
                         }
                     </div>
                 </p>
-                            if (Convert.ToBoolean(ViewData["mostflg" + i.ToString()]) == false)
-                            {
+                if (Convert.ToBoolean(ViewData["mostflg" + i.ToString()]) == false)
+                {
                     <p>
                         代表作： <a href=@ViewData["most_valuable_url" + i.ToString()]> @ViewData["most_valuable_title" + i.ToString()]</a>
                         (
                         @ViewData["most_point" + i.ToString()]
                         Pt)
                     </p>
-                            }
+                }
                 <p>ストーリー：@ViewData["story" + i.ToString()] </p>
                 <p>ジャンル：@ViewData["_biggenre" + i.ToString()]  - @ViewData["_genre" + i.ToString()] </p>
                 <p>キーワード：<span class="text-primary">@ViewData["keyword" + i.ToString()]</span></p>
@@ -101,7 +108,7 @@
                     </div>
                 </details>
                 <hr />
-             }
+            }
         </div>
     </body>
 </html>
