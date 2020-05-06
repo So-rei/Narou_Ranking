@@ -23,7 +23,27 @@ textarea {
     max-width: 280px;
 }
 
+
+/*--------------------------------------------------------------------------------*/
+/*NAROUPE 追加項目----------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------*/
 .font_Red {
     color: red;
     font-weight: bold;
+}
+.box {
+    position: relative;
+    padding: 10px 10px 15px 10px;
+    min-height: 280px;
+}
+.block_float {
+    /*background-color: #0f0; /*緑 */
+    float: left;
+}
+.absolute_r {
+    position: absolute;
+    right: -150px;
+}
+.cb {
+    clear: both;
 }

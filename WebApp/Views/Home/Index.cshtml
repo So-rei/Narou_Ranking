@@ -11,73 +11,79 @@
         <h2>検索結果：全 @ViewData["allcount"]　件 </h2>
         <hr />
         <div>
-            @for (int i = 1; i <  Convert.ToInt32(ViewData["viewcount"]) ; i++)
+            @for (int i = 1; i < Convert.ToInt32(ViewData["viewcount"]); i++)
             {
                 <h4> <a href=@ViewData["_url" + i.ToString()]> @ViewData["title" + i.ToString()]</a></h4>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <img src="@Url.Action("RenderChartData", new { irank = i })" />
+                <div class="container">
+                    <div class="box">
+                        <figure class="col-sm-6 col-md-4 col-lg-3 col-xl-2 block_float">
+                            <img src="@Url.Action("RenderChartData", new { irank = i })" class="block_float" />
+                            <!--<figcaption><p>CSS で画像と文字を重ねることができます！</p></figcaption>-->
+                        </figure>
+                        <div class="col-sm-12 col-md-8 col-lg-9 col-xl-10 absolute_r">
+                            <p>
+                                作者：
+                                @ViewData["writer" + i.ToString()]
+                            </p>
+                            @{
+                                int eternal = Convert.ToInt32(ViewData["eternal_per" + i.ToString()]);
+                                if (eternal > 0)
+                                {
+                                    <p>
+                                        作者の更新停止率：
+                                        @if (eternal < 20)
+                                        {
+                                            <span class="text-primary">@ViewData["eternal_per" + i.ToString()]</span>
+                                        }
+                                        else if (eternal < 40)
+                                        {
+                                            <span class="text-success">@ViewData["eternal_per" + i.ToString()]</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-danger">@ViewData["eternal_per" + i.ToString()]</span>
+                                        }
+                                        ％
+                                    </p>
+                                }
+                            }
+
+                            @if (Convert.ToBoolean(ViewData["mostflg" + i.ToString()]) == false)
+                            {
+                                <p>
+                                    作者の代表作： <a href=@ViewData["most_valuable_url" + i.ToString()]> @ViewData["most_valuable_title" + i.ToString()]</a>
+                                    (
+                                    @ViewData["most_point" + i.ToString()]
+                                    Pt)
+                                </p>
+                            }
+
+                            <p>ジャンル：@ViewData["_biggenre" + i.ToString()]  - @ViewData["_genre" + i.ToString()] </p>
+                            <p>キーワード：<span class="text-primary">@ViewData["keyword" + i.ToString()]</span></p>
+
+                            <p>最終掲載日：@ViewData["general_lastup" + i.ToString()]</p>
+
+                            <p>
+                                @ViewData["_end" + i.ToString()]
+                                @ViewData["length" + i.ToString()] 文字
+
+                                <span class="badge badge-dark">@ViewData["_isstop" + i.ToString()]</span>
+                                <span class="badge badge-info">@ViewData["_isr15" + i.ToString()]</span>
+                                <span class="badge badge-primary">@ViewData["_isbl" + i.ToString()]</span>
+                                <span class="badge badge-danger">@ViewData["_isgl" + i.ToString()]</span>
+                                <span class="badge badge-info">@ViewData["_iszankoku" + i.ToString()]</span>
+                                <span class="badge badge-secondary">@ViewData["_istensei" + i.ToString()]</span>
+                                <span class="badge badge-secondary">@ViewData["_istenni" + i.ToString()]</span>
+                                <span class="badge badge-light">@ViewData["_issasie" + i.ToString()]</span>
+                                <span class="badge badge-success">@ViewData["_isbook" + i.ToString()]</span>
+                                <span class="badge badge-success">@ViewData["_iscomic" + i.ToString()]</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                <p>
-                    <div>
-                        作者：
-                        @ViewData["writer" + i.ToString()]
-                        @{
-                            int eternal = Convert.ToInt32(ViewData["eternal_per" + i.ToString()]);
-                            if (eternal > 0)
-                            {
-                                <div>
-                                    作者エタ率：
-                                    @if (eternal < 20)
-                                    {
-                                        <span class="text-primary">@ViewData["eternal_per" + i.ToString()]</span>
-                                    }
-                                    else if (eternal < 40)
-                                    {
-                                        <span class="text-success">@ViewData["eternal_per" + i.ToString()]</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-danger">@ViewData["eternal_per" + i.ToString()]</span>
-                                    }
-                                    ％
-                                </div>
-                            }
-                        }
-                    </div>
-                </p>
-                if (Convert.ToBoolean(ViewData["mostflg" + i.ToString()]) == false)
-                {
-                    <p>
-                        代表作： <a href=@ViewData["most_valuable_url" + i.ToString()]> @ViewData["most_valuable_title" + i.ToString()]</a>
-                        (
-                        @ViewData["most_point" + i.ToString()]
-                        Pt)
-                    </p>
-                }
-                <p>ストーリー：@ViewData["story" + i.ToString()] </p>
-                <p>ジャンル：@ViewData["_biggenre" + i.ToString()]  - @ViewData["_genre" + i.ToString()] </p>
-                <p>キーワード：<span class="text-primary">@ViewData["keyword" + i.ToString()]</span></p>
-                <p>最終掲載日：@ViewData["general_lastup" + i.ToString()]</p>
-
-                <p>
-                    @ViewData["_end" + i.ToString()]
-                    @ViewData["length" + i.ToString()] 文字
-
-                    <span class="badge badge-dark">@ViewData["_isstop" + i.ToString()]</span>
-                    <span class="badge badge-info">@ViewData["_isr15" + i.ToString()]</span>
-                    <span class="badge badge-primary">@ViewData["_isbl" + i.ToString()]</span>
-                    <span class="badge badge-danger">@ViewData["_isgl" + i.ToString()]</span>
-                    <span class="badge badge-info">@ViewData["_iszankoku" + i.ToString()]</span>
-                    <span class="badge badge-secondary">@ViewData["_istensei" + i.ToString()]</span>
-                    <span class="badge badge-secondary">@ViewData["_istenni" + i.ToString()]</span>
-                    <span class="badge badge-light">@ViewData["_issasie" + i.ToString()]</span>
-                    <span class="badge badge-success">@ViewData["_isbook" + i.ToString()]</span>
-                    <span class="badge badge-success">@ViewData["_iscomic" + i.ToString()]</span>
-                </p>
+                <p class="cb">ストーリー：@ViewData["story" + i.ToString()] </p>
 
                 <details>
                     <summary class="p-1 mb-1 bg-info text-white">
@@ -107,9 +113,9 @@
                         </p>
                     </div>
                 </details>
-                <hr />
-            }
-        </div>
+             <hr />
+             }
+         </div>
     </body>
 </html>
 
